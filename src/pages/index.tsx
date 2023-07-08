@@ -22,6 +22,24 @@ const IndexPage = () => {
         ? Object.values(fetchedStockData?.stocks[selectedStock])
         : []
 
+    const chartButtonsContainer =
+        !selectedStock &&
+        fetchedStockData &&
+        fetchedStockData.duration.map(
+            (time: TimeDurationInterface, key: number) => {
+                const { value, label } = time
+                return (
+                    <Button
+                        key={key}
+                        onClick={handleClick}
+                        timePeriod={timePeriod}
+                        label={label}
+                        value={value}
+                    />
+                )
+            }
+        )
+
     const chartData = {
         labels: fetchedStockData?.stockLabels,
         datasets: [
@@ -43,24 +61,6 @@ const IndexPage = () => {
             }
         }
     }
-
-    const chartButtonsContainer =
-        !selectedStock &&
-        fetchedStockData &&
-        fetchedStockData.duration.map(
-            (time: TimeDurationInterface, key: number) => {
-                const { value, label } = time
-                return (
-                    <Button
-                        key={key}
-                        onClick={handleClick}
-                        timePeriod={timePeriod}
-                        label={label}
-                        value={value}
-                    />
-                )
-            }
-        )
 
     return (
         fetchedStockData && (
